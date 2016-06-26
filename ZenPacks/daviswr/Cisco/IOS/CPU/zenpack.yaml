@@ -1,1 +1,42 @@
 name: ZenPacks.daviswr.Cisco.IOS.CPU
+
+device_classes:
+  /Network/Cisco:
+    remove: false
+    templates:
+      CPU:
+        description: Processor load using CISCO-PROCESS-MIB
+        targetPythonClass: Products.ZenModel.CPU
+        datasources:
+          cpmCPUTotal1minRev:
+            type: SNMP
+            oid: .1.3.6.1.4.1.9.9.109.1.1.1.1.7
+            datapoints:
+              cpmCPUTotal1minRev:
+                description: The overall CPU busy percentage in the last 1 minute period
+                rrdtype: GAUGE
+          cpmCPUTotal5minRev:
+            type: SNMP
+            oid: .1.3.6.1.4.1.9.9.109.1.1.1.1.8
+            datapoints:
+              cpmCPUTotal5minRev:
+                description: The overall CPU busy percentage in the last 5 minute period
+                rrdtype: GAUGE
+        graphs:
+          Utilization:
+            height: 100
+            width: 500
+            units: percentage
+            miny: 0
+            maxy: 100
+            graphpoints:
+              CPU 1-minute avg:
+                dpName: cpmCPUTotal1minRev_cpmCPUTotal1minRev
+                lineType: AREA
+                stacked: true
+                colorindex: 0
+              CPU 5-minute avg:
+                dpName: cpmCPUTotal5minRev_cpmCPUTotal5minRev
+                lineType: LINE
+                lineWidth: 1
+                colorindex: 1
