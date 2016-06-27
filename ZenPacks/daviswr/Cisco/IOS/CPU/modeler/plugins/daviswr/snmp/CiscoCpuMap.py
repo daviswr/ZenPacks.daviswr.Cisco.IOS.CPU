@@ -21,8 +21,10 @@ class CiscoCpuMap(SnmpPlugin):
 
     entPhysicalEntry = {
         '.2':'entPhysicalDescr',
+        '.4':'entPhysicalContainedIn',
         '.7':'entPhysicalName',
         '.12':'entPhysicalMfgName',
+        '.13':'entPhysicalModelName',
     }
 
     snmpGetTableMaps = (
@@ -64,18 +66,26 @@ class CiscoCpuMap(SnmpPlugin):
                     log.debug('Index %s not found in Entity table, using index %s' % (snmpindex, entIndex))
             model = entTable[entIndex].get('entPhysicalModelName')
             if model is None or len(model) == 0:
-                log.debug('entPhysicalModelName not available, using entPhysicalName')
-                model = entTable[entIndex].get('entPhysicalName')
+                log.debug('entPhysicalModelName not available, using entPhysicalDescr')
+                model = entTable[entIndex].get('entPhysicalDescr')
                 if model is None or len(model) == 0:
-                    log.debug('entPhysicalName not available, using entPhysicalDescr')
-                    model = entTable[entIndex].get('entPhysicalDescr')
+                    log.debug('entPhysicalDescr not available, using entPhysicalName')
+                    model = entTable[entIndex].get('entPhysicalName')
                     if model is None or len(model) == 0:
-                      log.debug('entPhysicalDescr not available, using default model')
-                      model = 'CPU {}'.format(str(om.snmpindex))
+                       log.debug('entPhysicalName not available, using default model')
+                       model = 'CPU {}'.format(str(om.snmpindex))
+            if model.lower().find('cpu') < 0 \
+                or model.lower().find('proc') < 0:
+                model = 'CPU of {}'.format(model)
             mfg = entTable[entIndex].get('entPhysicalMfgName')
             if mfg is None or len(mfg) == 0:
                 log.debug('entPhysicalMfgName not available, using default manufacturer')
                 mfg = 'Cisco'
+            socket = entTable[entIndex].get('entPhysicalContainedIn')
+            if socket is None or len(socket) == 0:
+              log.debug('entPhysicalContainedIn not available, using 0 for socket')
+              socket = '0'
+              # TODO: Set socket value in ObjectMap
             log.debug('Index: %s, Model: %s, Manufacturer: %s' % (entIndex, model, mfg))
             om.setProductKey = MultiArgs(model, mfg)
             om.id = self.prepId(model)
