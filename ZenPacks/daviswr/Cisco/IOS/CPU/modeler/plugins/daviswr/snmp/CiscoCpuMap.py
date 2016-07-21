@@ -82,7 +82,7 @@ class CiscoCpuMap(SnmpPlugin):
                 log.debug('entPhysicalMfgName not available, using default manufacturer')
                 mfg = 'Cisco'
             socket = entTable[entIndex].get('entPhysicalContainedIn')
-            if socket is None or len(socket) == 0:
+            if socket is None or len(str(socket)) == 0:
               log.debug('entPhysicalContainedIn not available, using 0 for socket')
               socket = '0'
               # TODO: Set socket value in ObjectMap
