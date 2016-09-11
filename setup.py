@@ -3,7 +3,7 @@
 # or saved.  Do not modify them directly here.
 # NB: PACKAGES is deprecated
 NAME = "ZenPacks.daviswr.Cisco.IOS.CPU"
-VERSION = "0.1.0"
+VERSION = "0.7.0"
 AUTHOR = "Wes Davis"
 LICENSE = "MIT"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.daviswr', 'ZenPacks.daviswr.Cisco', 'ZenPacks.daviswr.Cisco.IOS']
