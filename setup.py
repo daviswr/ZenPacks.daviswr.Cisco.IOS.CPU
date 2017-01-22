@@ -8,7 +8,7 @@ AUTHOR = "Wes Davis"
 LICENSE = "MIT"
 NAMESPACE_PACKAGES = ['ZenPacks', 'ZenPacks.daviswr', 'ZenPacks.daviswr.Cisco', 'ZenPacks.daviswr.Cisco.IOS']
 PACKAGES = ['ZenPacks', 'ZenPacks.daviswr', 'ZenPacks.daviswr.Cisco', 'ZenPacks.daviswr.Cisco.IOS', 'ZenPacks.daviswr.Cisco.IOS.CPU']
-INSTALL_REQUIRES = []
+INSTALL_REQUIRES = ['ZenPacks.zenoss.ZenPackLib']
 COMPAT_ZENOSS_VERS = ">=4.2.5"
 PREV_ZENPACK_NAME = ""
 # STOP_REPLACEMENTS
