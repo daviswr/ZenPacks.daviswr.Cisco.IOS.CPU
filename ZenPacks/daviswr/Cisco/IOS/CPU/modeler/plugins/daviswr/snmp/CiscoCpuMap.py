@@ -32,6 +32,13 @@ class CiscoCpuMap(SnmpPlugin):
         GetTableMap('entPhysicalTable', '.1.3.6.1.2.1.47.1.1.1.1', entPhysicalEntry),
     )
 
+    def condition(self, device, log):
+        """determine if this modeler should run"""
+        # CISCO-SMI::ciscoProducts
+        if not device.snmpOid.startswith('.1.3.6.1.4.1.9.1'):
+            log.info('%s is not a Cisco IOS device', device.id)
+        return device.snmpOid.startswith('.1.3.6.1.4.1.9.1')
+
     def process(self, device, results, log):
         """collect snmp information from this device"""
         log.info('processing %s for device %s', self.name(), device.id)
