@@ -6,4 +6,4 @@ pep8:
 	pep8 --show-source --max-line-length=80 $(PY_FILES)
 
 install-hook:
-	cp pre-commit.sh .git/hooks/pre-commit
+	cp pre-commit.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
