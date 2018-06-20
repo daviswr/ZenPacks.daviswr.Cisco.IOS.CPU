@@ -114,7 +114,7 @@ class CiscoCpuMap(SnmpPlugin):
                         log.debug('entPhysicalName not available')
                         model = 'CPU {0}'.format(om.snmpindex)
 
-            if 'cpu' not in model.lower() or 'proc' not in model.lower():
+            if 'cpu' not in model.lower() and 'proc' not in model.lower():
                 model = 'CPU of {0}'.format(model)
 
             mfg = entTable[entIndex].get('entPhysicalMfgName')
